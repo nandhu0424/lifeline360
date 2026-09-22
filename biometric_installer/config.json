@@ -1,0 +1,14 @@
+{
+  "mysql": {
+    "host": "localhost",
+    "port": 3306,
+    "user": "root",
+    "password": "Nandhini@0424",
+    "database": "lifeline360"
+  },
+  "cloud": {
+    "url": "http://localhost:5000/api/attendance/secure-push",
+    "secret": "lifeline360_secure_sync_secret"
+  },
+  "sync_interval_seconds": 5
+}

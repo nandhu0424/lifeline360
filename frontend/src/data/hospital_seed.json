@@ -1,0 +1,50 @@
+[
+  {
+    "hospital_id": "MDU007",
+    "name": "Thirunagar UPHC",
+    "type": "UPHC",
+    "district": "Madurai",
+    "location": { "lat": 9.8821, "lng": 78.0812 },
+    "address": "Thirunagar, Madurai",
+    "staff_count": 7,
+    "contact": "0452-2345007",
+    "status": "active",
+    "created_at": "2026-04-23T06:17:27.966+00:00"
+  },
+  {
+    "hospital_id": "MDU008",
+    "name": "Alanganallur Sub Centre",
+    "type": "SUB_CENTRE",
+    "district": "Madurai",
+    "location": { "lat": 10.0461, "lng": 78.1408 },
+    "address": "Alanganallur, Madurai",
+    "staff_count": 2,
+    "contact": "0452-2345008",
+    "status": "active",
+    "created_at": "2026-04-23T06:17:27.966+00:00"
+  },
+  {
+    "hospital_id": "MDU009",
+    "name": "Kottampatti Sub Centre",
+    "type": "SUB_CENTRE",
+    "district": "Madurai",
+    "location": { "lat": 10.3345, "lng": 78.3612 },
+    "address": "Kottampatti, Madurai",
+    "staff_count": 2,
+    "contact": "0452-2345009",
+    "status": "active",
+    "created_at": "2026-04-23T06:17:27.967+00:00"
+  },
+  {
+    "hospital_id": "MDU010",
+    "name": "Tirumangalam Sub Centre",
+    "type": "SUB_CENTRE",
+    "district": "Madurai",
+    "location": { "lat": 9.8234, "lng": 77.9876 },
+    "address": "Tirumangalam, Madurai",
+    "staff_count": 2,
+    "contact": "0452-2345010",
+    "status": "active",
+    "created_at": "2026-04-23T06:17:27.967+00:00"
+  }
+]

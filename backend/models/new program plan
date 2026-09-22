@@ -1,0 +1,54 @@
+# Technical Implementation Plan: Lifeline360 UI & Workflow Enhancements
+
+This document provides a comprehensive implementation plan for the layout fixes, evidence viewing system, and automated task reassignment email notification workflow in Lifeline360.
+
+---
+
+## Executive Summary
+
+The updates address three core functional areas:
+1. **PHC Portal Modal Layout**: Fixed vertical modal overflow in [Programs.js](file:///c:/Users/ELCOT/Desktop/Lifeline360/Lifeline360/frontend/src/pages/phc/components/Programs.js) when attaching multiple evidence files.
+2. **DDHS Portal Report Modal & In-App Viewer**: Fixed report view modal bounds in [WorkAssignments.js](file:///c:/Users/ELCOT/Desktop/Lifeline360/Lifeline360/frontend/src/pages/ddhs/WorkAssignments.js) and replaced forced file downloading with an **In-App Lightbox Previewer** and Blob URL streaming.
+3. **DDHS Email & Overdue Task Workflow**: Updated DDHS Coimbatore recipient email mapping to `ssowndharya487@gmail.com` and enabled automatic 7-day task extensions with email alerts when tasks pass their due dates.
+
+---
+
+## Key Technical Changes
+
+### 1. PHC Component: Report Completion Modal Layout
+- **Target File**: [frontend/src/pages/phc/components/Programs.js](file:///c:/Users/ELCOT/Desktop/Lifeline360/Lifeline360/frontend/src/pages/phc/components/Programs.js)
+- **Key Enhancements**:
+  - Constrained modal container to `maxHeight: '88vh'` with `display: flex` and `flexDirection: column`.
+  - Created a fixed top header containing the modal title, subtext, and close (`✕`) button.
+  - Placed notes and upload dropzone inside a scrollable middle body (`flex: 1`, `overflowY: 'auto'`).
+  - Added a `maxHeight: '180px'` scrollable container for selected evidence files (`Screenshot (1).png` ... `Screenshot (12).png`).
+  - Anchored action buttons (**Cancel** & **Submit Report**) to a sticky bottom footer.
+
+### 2. DDHS Component: Task Completion Report & In-App Evidence Viewer
+- **Target File**: [frontend/src/pages/ddhs/WorkAssignments.js](file:///c:/Users/ELCOT/Desktop/Lifeline360/Lifeline360/frontend/src/pages/ddhs/WorkAssignments.js)
+- **Key Enhancements**:
+  - **In-App Lightbox Modal**: Created a full-featured preview modal for images and PDF documents directly on screen.
+  - **Blob URL Opener (`openInNewTab`)**: Converts base64 `data:` URIs into binary `Blob` objects (`URL.createObjectURL(blob)`) so files open directly in browser tabs without initiating hard drive downloads.
+  - **Bounded Report View Modal**: Added `maxHeight: '88vh'` with a `200px` scrollable attached evidence list and fixed sticky bottom action buttons (**Request Changes** & **Approve & Complete**).
+
+### 3. Backend: Email Mapping & Overdue Scheduler
+- **Target Files**:
+  - [backend/utils/emailService.js](file:///c:/Users/ELCOT/Desktop/Lifeline360/Lifeline360/backend/utils/emailService.js)
+  - [backend/utils/alertScheduler.js](file:///c:/Users/ELCOT/Desktop/Lifeline360/Lifeline360/backend/utils/alertScheduler.js)
+  - [backend/seed_all_fresh.js](file:///c:/Users/ELCOT/Desktop/Lifeline360/Lifeline360/backend/seed_all_fresh.js)
+- **Key Enhancements**:
+  - Updated `districtEmailMap['Coimbatore']` to `ssowndharya487@gmail.com`.
+  - Exported `checkOverdueWorkAlerts` in `alertScheduler.js` for automated daily/startup overdue task checks.
+  - Synchronized database seed files and MongoDB user collection to `ssowndharya487@gmail.com`.
+
+---
+
+## Verification Plan
+
+### Automated Test Scripts
+1. **Email Service Test**: Run `node scratch/send_cbe_test_email.js` to verify SMTP credentials and email dispatch to `ssowndharya487@gmail.com`.
+2. **Overdue Task Workflow Simulation**: Run `node scratch/test_overdue_flow.js` to test creating a task for `CBE001` with an overdue deadline, triggering auto-reassignment (+7 days), and sending the notification email.
+
+### Visual & Manual Verification
+- Open `/phc-dashboard` -> Click **Report Completion** -> Upload 8+ files -> Verify fixed header/footer and scrollable file list.
+- Open `/work-assignments` -> Click a submitted report -> Click evidence file (`Screenshot (9).png`) -> Verify file opens directly in-app or in a new browser tab without downloading.
