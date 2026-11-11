@@ -32,7 +32,9 @@ const Navbar = () => {
     setNotifLoading(true);
     try {
       const token = sessionStorage.getItem('token');
-      const res = await axios.get('http://localhost:5000/api/notifications', {
+      const BACKEND_URL = process.env.REACT_APP_API_URL || 'http://localhost:5000';
+      const baseUrl = BACKEND_URL.replace(/\/+$/, '');
+      const res = await axios.get(`${baseUrl}/api/notifications`, {
         headers: { Authorization: `Bearer ${token}` }
       });
       if (res.data.success) {

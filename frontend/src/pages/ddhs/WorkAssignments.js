@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 
+const BACKEND_URL = (process.env.REACT_APP_API_URL || 'http://localhost:5000').replace(/\/+$/, '');
+
 const DDHSWorkAssignments = () => {
   const [assignments, setAssignments] = useState([]);
   const [clinics, setClinics] = useState([]);
@@ -61,7 +63,7 @@ const DDHSWorkAssignments = () => {
   const fetchAssignments = async () => {
     try {
       const token = sessionStorage.getItem('token');
-      const res = await axios.get('http://localhost:5000/api/work', {
+      const res = await axios.get(`${BACKEND_URL}/api/work`, {
         headers: { Authorization: `Bearer ${token}` }
       });
       if (res.data.success) {
@@ -75,7 +77,7 @@ const DDHSWorkAssignments = () => {
   const fetchClinics = async () => {
     try {
       const token = sessionStorage.getItem('token');
-      const res = await axios.get('http://localhost:5000/api/hospitals', {
+      const res = await axios.get(`${BACKEND_URL}/api/hospitals`, {
         headers: { Authorization: `Bearer ${token}` }
       });
       if (res.data.success) {
@@ -100,7 +102,7 @@ const DDHSWorkAssignments = () => {
     setSubmitting(true);
     try {
       const token = sessionStorage.getItem('token');
-      const res = await axios.post('http://localhost:5000/api/work', formData, {
+      const res = await axios.post(`${BACKEND_URL}/api/work`, formData, {
         headers: { Authorization: `Bearer ${token}` }
       });
 
@@ -130,7 +132,7 @@ const DDHSWorkAssignments = () => {
   const handleVerify = async (taskId, decision, feedback) => {
     try {
       const token = sessionStorage.getItem('token');
-      const res = await axios.post(`http://localhost:5000/api/work/${taskId}/verify`, {
+      const res = await axios.post(`${BACKEND_URL}/api/work/${taskId}/verify`, {
         status: decision === 'approve' ? 'Completed' : 'Action Required',
         feedback: feedback
       }, {

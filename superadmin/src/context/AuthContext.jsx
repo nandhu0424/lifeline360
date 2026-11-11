@@ -1,7 +1,8 @@
 import { useState, createContext, useContext, useEffect } from 'react';
 import axios from 'axios';
 
-const API_URL = 'http://localhost:5000/api/superadmin';
+const BACKEND_URL = (import.meta.env.VITE_API_URL || 'http://localhost:5000').replace(/\/+$/, '');
+const API_URL = `${BACKEND_URL}/api/superadmin`;
 
 export const AuthContext = createContext();
 
